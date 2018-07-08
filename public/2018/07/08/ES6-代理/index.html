@@ -11,7 +11,7 @@
 
     <title>
         
-        Tags - 诗酒趁年华的博客 | Bear&#39;s Blog
+        ES6-代理反射 - 诗酒趁年华的博客 | Bear&#39;s Blog
         
     </title>
 
@@ -59,7 +59,7 @@
                     <span>主页</span>
                 </a>
             </li>
-            <li  class=active >
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    
+</div>
+    
 </div>
 
 
@@ -110,87 +114,113 @@
     
     <div class="index-middle">
         <!-- Main Content -->
-        <div id='tag_cloud' class="tags">
-    
-    <a href="#ES6" title="ES6" rel="2">ES6</a>
-    
-    <a href="#js" title="js" rel="2">js</a>
-    
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        ES6-代理反射
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-08 12:43:55</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#ES6" title="ES6">ES6</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <blockquote>
+<p>学习了ES6中的代理. 代理赋予了开发者访问js底层的一些东西的能力, 还是挺好玩的, 不过有点多, 对比一下.</p>
+</blockquote>
+<ol>
+<li>一些比较</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>比较项</th>
+<th>反射方法</th>
+<th>Object的方法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set</td>
+<td>Reflect.set(trapTarget, key, value, redeiver)</td>
+<td>-</td>
+<td>拦截为对象属性赋值</td>
+</tr>
+<tr>
+<td>get</td>
+<td>Reflect.get(trapTraget, key, receiver)</td>
+<td>-</td>
+<td>拦截读取对象属性</td>
+</tr>
+<tr>
+<td>has</td>
+<td>Reflect.has(trapTarget, key)</td>
+<td>-</td>
+<td>拦截in操作</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>Reflect.deleteProperty(trapTarget,key)</td>
+<td>-</td>
+<td>拦截delete操作</td>
+</tr>
+<tr>
+<td>setPrototypeOf</td>
+<td>Reflect.setPrototypeOf(trapTarget, proto) 底层操作,返回Boolean表示操作是否成功,成功则true,失败则false</td>
+<td>Object.setPrototypeOf(trapTarget,proto) 上层操作, 操作失败直接抛出错误</td>
+<td>拦截setPrototypeOf操作</td>
+</tr>
+<tr>
+<td>getPrototypeOf</td>
+<td>Reflect.getPrototypeOf(trapTarget) 参数不是对象直接报错</td>
+<td>Object.getPrototypeOf(trapTarget),参数不是对象先转换成对象</td>
+<td>拦截getPrototypeOf操作</td>
+</tr>
+<tr>
+<td>preventExtensions</td>
+<td>Reflect.preventExtensions(trapTarget),参数不是对象报错,参数是对象返回true或false</td>
+<td>Object.preventExtensions(trapTarget),返回参数</td>
+<td>拦截preventExtensions</td>
+</tr>
+</tbody>
+</table>
+<p>isExtensible|Reflect.isExtensible(target) 非对象直接报错|Object.isExtensible(target) 非对象返回false|拦截isExtensible|<br>|defineProperty|Reflect.defineProperty(trapTarget, key, descriptor) 返回true或false|Object.defineProperty(trapTarget, key, descriptor) 出错时报错|拦截defineProperty|<br>|getOwnPropertyDescriptor|Refect.getOwnPropertyDescriptor(trapTarget,key) 非对象报错|Object.getOwnPropertyDescriptor(trapTarget,key) 非对象转换成对象|enumerable,configurable,value,writable,get,set|<br>|ownKeys|Reflect.ownKeys(target)|Object.keys(),Object.getOwnPropertyNames(),Object.assign(),Object.getOwnPropertySymbols()|返回数组就好|<br>|apply|Reflect.apply(trapTarget,thisArg,argumentList)|-|拦截函数调用|<br>|construct|Reflect.construct(target,argumentList)|-|拦截new调用|</p>
+<ol start="2">
+<li>创建可撤销的代理</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Proxy</span>.revocable();  =&gt; &#123;proxy, revoke&#125;</span><br><span class="line"></span><br><span class="line">调用revoke()即可撤销</span><br></pre></td></tr></table></figure>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/zhifubao.GIF">
+        <p> 感谢鼓励 </p>
+    </div>
 </div>
-
-<!-- 标签列表 -->
-
-
-<div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="ES6">
-                    <span class="tag-text">ES6</span>
-                </span>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/2018/07/08/ES6-代理/">
-            <h2 class="post-title">
-                ES6-代理反射
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+        
+        <div id="comment-container">
+        </div>
     </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/2018/07/08/ES6-模块/">
-            <h2 class="post-title">
-                ES6-模块
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
 </div>
-
-<div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="js">
-                    <span class="tag-text">js</span>
-                </span>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/2018/07/08/ES6-代理/">
-            <h2 class="post-title">
-                ES6-代理反射
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/2018/07/08/ES6-模块/">
-            <h2 class="post-title">
-                ES6-模块
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-</div>
-
     </div>
 </div>
 
@@ -234,7 +264,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>

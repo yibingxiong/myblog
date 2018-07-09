@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="诗酒年华的博客,易丙雄,丙雄">
+    <meta name="keyword"  content="诗酒年华的博客,易丙雄,丙雄,分享和笔记">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        记一次苦逼的找bug经历 - 诗酒趁年华的博客 | Bear&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 生活不至眼前的苟且,还有... </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>大熊</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漫长的bug寻找过程"><span class="toc-text">漫长的bug寻找过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终于找到了"><span class="toc-text">终于找到了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结一下"><span class="toc-text">总结一下</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 生活不至眼前的苟且,还有... </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        记一次苦逼的找bug经历
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-09 21:50:53</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#坑" title="坑">坑</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#开发记录" title="开发记录">开发记录</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>公司项目的模式是后端给给模板塞一些静态数据, 加载前端放在cdn上的js,css, js负责动态的构建整个dom, 采用的框架是React. 某日需要添加一个新的页面, 遂写了一个模板html给server, 写好了js,css的路径, 让他response出来. 折腾了一下午, js文件正常加载, css正常加载, 可是整个页面空空如也, html里边只有个id为app的div(ps: 这是一个范式了, 我们会用react做, 往这个app里填东西).</p>
+<h2 id="漫长的bug寻找过程"><a href="#漫长的bug寻找过程" class="headerlink" title="漫长的bug寻找过程"></a>漫长的bug寻找过程</h2><ol>
+<li>是有缓存吗?</li>
+</ol>
+<p>我甚至将所有近七天的浏览器数据都清除了, 重启Fiddler, 勾选disable cache. 反正能试的我都试了.</p>
+<ol start="2">
+<li>是打包出问题了吗?</li>
+</ol>
+<p>用的是webpack打包的, 我尝试去加个alert(3), 然后在打包后的文件去搜索, 发现是能搜索到的?</p>
+<ol start="3">
+<li>是不是我里边的小组件有问题?</li>
+</ol>
+<p>我尝试在根级组件加了乱七八糟的东西, 结果还是啥都没有?</p>
+<ol start="4">
+<li>是不是还有其他的依赖没有下载下来?</li>
+</ol>
+<p>我将他的network与其他页面的对比, 试图发现不同, 但并没有对结果又影响的不同.</p>
+<ol start="5">
+<li>还是问问老大吧?</li>
+</ol>
+<p>我厚着脸皮发微信问老大, 然而,,,他在开会, 还开了很久.</p>
+<h2 id="终于找到了"><a href="#终于找到了" class="headerlink" title="终于找到了"></a>终于找到了</h2><p>就在我几近崩溃之时, 我趴在桌上还html结构发现,,,,原来是这里. 我的HTML在浏览器显示是这样的.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">scritp</span> <span class="attr">src</span> = <span class="string">'aaa.js'</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在看我给后端的模板, 发现我写成了这样.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">scritp</span> <span class="attr">src</span> = <span class="string">'aaa.js'</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>哎哎哎, 害死人啊. 这样写浏览器会照常下载, 但构建的html结构不对, 引入的文件也不会执行.</p>
+<h2 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h2><p>应该正确使用html标签, 该是自闭合的就得自闭合, 该写两个标签闭合的就写两个标签闭合. 不要因为几次写错标签找瞎了眼, 找白了头.</p>
+<hr>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/zhifubao.GIF">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

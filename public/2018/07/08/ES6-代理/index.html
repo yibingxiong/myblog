@@ -198,9 +198,44 @@
 <td>Object.preventExtensions(trapTarget),返回参数</td>
 <td>拦截preventExtensions</td>
 </tr>
+<tr>
+<td>isExtensible</td>
+<td>Reflect.isExtensible(target) 非对象直接报错</td>
+<td>Object.isExtensible(target) 非对象返回false</td>
+<td>拦截isExtensible</td>
+</tr>
+<tr>
+<td>defineProperty</td>
+<td>Reflect.defineProperty(trapTarget, key, descriptor) 返回true或false</td>
+<td>Object.defineProperty(trapTarget, key, descriptor) 出错时报错</td>
+<td>拦截defineProperty</td>
+</tr>
+<tr>
+<td>getOwnPropertyDescriptor</td>
+<td>Refect.getOwnPropertyDescriptor(trapTarget,key) 非对象报错</td>
+<td>Object.getOwnPropertyDescriptor(trapTarget,key) 非对象转换成对象</td>
+<td>enumerable,configurable,value,writable,get,set</td>
+</tr>
+<tr>
+<td>ownKeys</td>
+<td>Reflect.ownKeys(target)</td>
+<td>Object.keys(),Object.getOwnPropertyNames(),Object.assign(),Object.getOwnPropertySymbols()</td>
+<td>返回数组就好</td>
+</tr>
+<tr>
+<td>apply</td>
+<td>Reflect.apply(trapTarget,thisArg,argumentList)</td>
+<td>-</td>
+<td>拦截函数调用</td>
+</tr>
+<tr>
+<td>construct</td>
+<td>Reflect.construct(target,argumentList)</td>
+<td>-</td>
+<td>拦截new调用</td>
+</tr>
 </tbody>
 </table>
-<p>isExtensible|Reflect.isExtensible(target) 非对象直接报错|Object.isExtensible(target) 非对象返回false|拦截isExtensible|<br>|defineProperty|Reflect.defineProperty(trapTarget, key, descriptor) 返回true或false|Object.defineProperty(trapTarget, key, descriptor) 出错时报错|拦截defineProperty|<br>|getOwnPropertyDescriptor|Refect.getOwnPropertyDescriptor(trapTarget,key) 非对象报错|Object.getOwnPropertyDescriptor(trapTarget,key) 非对象转换成对象|enumerable,configurable,value,writable,get,set|<br>|ownKeys|Reflect.ownKeys(target)|Object.keys(),Object.getOwnPropertyNames(),Object.assign(),Object.getOwnPropertySymbols()|返回数组就好|<br>|apply|Reflect.apply(trapTarget,thisArg,argumentList)|-|拦截函数调用|<br>|construct|Reflect.construct(target,argumentList)|-|拦截new调用|</p>
 <ol start="2">
 <li>创建可撤销的代理</li>
 </ol>

@@ -17,7 +17,7 @@ tags: [ES6, js]
 |setPrototypeOf|Reflect.setPrototypeOf(trapTarget, proto) 底层操作,返回Boolean表示操作是否成功,成功则true,失败则false|Object.setPrototypeOf(trapTarget,proto) 上层操作, 操作失败直接抛出错误|拦截setPrototypeOf操作|
 |getPrototypeOf|Reflect.getPrototypeOf(trapTarget) 参数不是对象直接报错|Object.getPrototypeOf(trapTarget),参数不是对象先转换成对象|拦截getPrototypeOf操作|
 |preventExtensions|Reflect.preventExtensions(trapTarget),参数不是对象报错,参数是对象返回true或false|Object.preventExtensions(trapTarget),返回参数|拦截preventExtensions|
-isExtensible|Reflect.isExtensible(target) 非对象直接报错|Object.isExtensible(target) 非对象返回false|拦截isExtensible|
+|isExtensible|Reflect.isExtensible(target) 非对象直接报错|Object.isExtensible(target) 非对象返回false|拦截isExtensible|
 |defineProperty|Reflect.defineProperty(trapTarget, key, descriptor) 返回true或false|Object.defineProperty(trapTarget, key, descriptor) 出错时报错|拦截defineProperty|
 |getOwnPropertyDescriptor|Refect.getOwnPropertyDescriptor(trapTarget,key) 非对象报错|Object.getOwnPropertyDescriptor(trapTarget,key) 非对象转换成对象|enumerable,configurable,value,writable,get,set|
 |ownKeys|Reflect.ownKeys(target)|Object.keys(),Object.getOwnPropertyNames(),Object.assign(),Object.getOwnPropertySymbols()|返回数组就好|

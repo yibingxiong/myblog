@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="诗酒年华的博客,易丙雄,丙雄">
+    <meta name="keyword"  content="诗酒年华的博客,易丙雄,丙雄,分享和笔记">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        ES6-代理反射 - 诗酒趁年华的博客 | Bear&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 生活不至眼前的苟且,还有... </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>大熊</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 生活不至眼前的苟且,还有... </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        ES6-代理反射
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-08 12:43:55</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#ES6" title="ES6">ES6</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <blockquote>
+<p>学习了ES6中的代理. 代理赋予了开发者访问js底层的一些东西的能力, 还是挺好玩的, 不过有点多, 对比一下.</p>
+</blockquote>
+<ol>
+<li>一些比较</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>比较项</th>
+<th>反射方法</th>
+<th>Object的方法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set</td>
+<td>Reflect.set(trapTarget, key, value, redeiver)</td>
+<td>-</td>
+<td>拦截为对象属性赋值</td>
+</tr>
+<tr>
+<td>get</td>
+<td>Reflect.get(trapTraget, key, receiver)</td>
+<td>-</td>
+<td>拦截读取对象属性</td>
+</tr>
+<tr>
+<td>has</td>
+<td>Reflect.has(trapTarget, key)</td>
+<td>-</td>
+<td>拦截in操作</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>Reflect.deleteProperty(trapTarget,key)</td>
+<td>-</td>
+<td>拦截delete操作</td>
+</tr>
+<tr>
+<td>setPrototypeOf</td>
+<td>Reflect.setPrototypeOf(trapTarget, proto) 底层操作,返回Boolean表示操作是否成功,成功则true,失败则false</td>
+<td>Object.setPrototypeOf(trapTarget,proto) 上层操作, 操作失败直接抛出错误</td>
+<td>拦截setPrototypeOf操作</td>
+</tr>
+<tr>
+<td>getPrototypeOf</td>
+<td>Reflect.getPrototypeOf(trapTarget) 参数不是对象直接报错</td>
+<td>Object.getPrototypeOf(trapTarget),参数不是对象先转换成对象</td>
+<td>拦截getPrototypeOf操作</td>
+</tr>
+<tr>
+<td>preventExtensions</td>
+<td>Reflect.preventExtensions(trapTarget),参数不是对象报错,参数是对象返回true或false</td>
+<td>Object.preventExtensions(trapTarget),返回参数</td>
+<td>拦截preventExtensions</td>
+</tr>
+<tr>
+<td>isExtensible</td>
+<td>Reflect.isExtensible(target) 非对象直接报错</td>
+<td>Object.isExtensible(target) 非对象返回false</td>
+<td>拦截isExtensible</td>
+</tr>
+<tr>
+<td>defineProperty</td>
+<td>Reflect.defineProperty(trapTarget, key, descriptor) 返回true或false</td>
+<td>Object.defineProperty(trapTarget, key, descriptor) 出错时报错</td>
+<td>拦截defineProperty</td>
+</tr>
+<tr>
+<td>getOwnPropertyDescriptor</td>
+<td>Refect.getOwnPropertyDescriptor(trapTarget,key) 非对象报错</td>
+<td>Object.getOwnPropertyDescriptor(trapTarget,key) 非对象转换成对象</td>
+<td>enumerable,configurable,value,writable,get,set</td>
+</tr>
+<tr>
+<td>ownKeys</td>
+<td>Reflect.ownKeys(target)</td>
+<td>Object.keys(),Object.getOwnPropertyNames(),Object.assign(),Object.getOwnPropertySymbols()</td>
+<td>返回数组就好</td>
+</tr>
+<tr>
+<td>apply</td>
+<td>Reflect.apply(trapTarget,thisArg,argumentList)</td>
+<td>-</td>
+<td>拦截函数调用</td>
+</tr>
+<tr>
+<td>construct</td>
+<td>Reflect.construct(target,argumentList)</td>
+<td>-</td>
+<td>拦截new调用</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>创建可撤销的代理</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Proxy</span>.revocable();  =&gt; &#123;proxy, revoke&#125;</span><br><span class="line"></span><br><span class="line">调用revoke()即可撤销</span><br></pre></td></tr></table></figure>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/zhifubao.GIF">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

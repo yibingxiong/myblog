@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#四个东西"><span class="toc-text">四个东西</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于这几个的理解"><span class="toc-text">关于这几个的理解</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#四个东西"><span class="toc-text">四个东西</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于这几个的理解"><span class="toc-text">关于这几个的理解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-redux"><span class="toc-text">react-redux</span></a></li></ol>
 </div>
     
 </div>
@@ -149,11 +149,42 @@
 </ol>
 <figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reducer(<span class="keyword">state</span>, action) &#123;</span><br><span class="line">  return newState;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="关于这几个的理解"><a href="#关于这几个的理解" class="headerlink" title="关于这几个的理解"></a>关于这几个的理解</h2><p><img src="/2018/08/redux学习笔记1.png" alt="redux几个概念的理解"></p>
+<h2 id="关于这几个的理解"><a href="#关于这几个的理解" class="headerlink" title="关于这几个的理解"></a>关于这几个的理解</h2><p><img src="/img/2018/08/redux学习笔记1.png" height="550"></p>
 <ul>
 <li>几个方法</li>
 </ul>
-
+<ol>
+<li><p>combineReducers 将多个reducer函数合起来, 便于createStrore使用</p>
+</li>
+<li><p>createStore(reducer, [preloadedState], enhancer) 创建store</p>
+</li>
+<li><p>Store 方法</p>
+</li>
+</ol>
+<ul>
+<li>getState()</li>
+<li>dispatch(action)</li>
+<li>subscribe(listener)</li>
+<li>replaceReducer(nextReducer)</li>
+</ul>
+<ol start="4">
+<li>applyMiddleware </li>
+</ol>
+<h1 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h1><ol>
+<li><p>容器组件与视图组件</p>
+</li>
+<li><p>connect</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> VisibleTodoList = connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(TodoList)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>mapStateToProps</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    todos: getVisibleTodos(state.todos, state.visibilityFilter)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;<span class="string">`</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>mapDispatchToProps</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapDispatchToProps = (</span><br><span class="line">  dispatch,</span><br><span class="line">  ownProps</span><br><span class="line">) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    onClick: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">'SET_VISIBILITY_FILTER'</span>,</span><br><span class="line">        filter: ownProps.filter</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
             <div class="donate-container">
     <div class="donate-button">

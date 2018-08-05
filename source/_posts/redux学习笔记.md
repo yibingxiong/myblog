@@ -45,7 +45,63 @@ reducer(state, action) {
 ------------------
 ## 关于这几个的理解
 
-![redux几个概念的理解](/2018/08/redux学习笔记1.png)
+<img src="/img/2018/08/redux学习笔记1.png" height="550"/>
 
 
 * 几个方法
+
+1. combineReducers 将多个reducer函数合起来, 便于createStrore使用
+
+2. createStore(reducer, [preloadedState], enhancer) 创建store
+
+3. Store 方法
+
+- getState()
+- dispatch(action)
+- subscribe(listener)
+- replaceReducer(nextReducer)
+
+4. applyMiddleware 
+
+# react-redux
+
+1. 容器组件与视图组件
+
+2. connect
+```JavaScript
+
+import { connect } from 'react-redux'
+
+const VisibleTodoList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList)
+```
+
+- mapStateToProps
+
+```javascript
+const mapStateToProps = (state) => {
+  return {
+    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+  }
+}`
+```
+
+- mapDispatchToProps
+
+```javascript
+const mapDispatchToProps = (
+  dispatch,
+  ownProps
+) => {
+  return {
+    onClick: () => {
+      dispatch({
+        type: 'SET_VISIBILITY_FILTER',
+        filter: ownProps.filter
+      });
+    }
+  };
+}
+```
